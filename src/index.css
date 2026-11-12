@@ -1,0 +1,63 @@
+@import "tailwindcss";
+
+@theme {
+  --color-navy: #101C2B;
+  --color-navy-deep: #0b1420;
+  --color-nordic: #23445A;
+  --color-glacier: #F7F9FA;
+  --color-silver: #E8EDF0;
+  --color-slate: #586673;
+  --color-ice: #B6D7E5;
+  --color-ice-soft: #cfe5ee;
+  --color-line: #dbe2e7;
+  --color-danger: #a3292a;
+
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Inter Tight", "Inter", ui-sans-serif, system-ui, sans-serif;
+}
+
+@layer base {
+  html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+  body {
+    @apply bg-glacier text-navy font-sans antialiased;
+    overflow-x: hidden;
+  }
+  h1, h2, h3, h4 { @apply font-display; letter-spacing: -0.025em; text-wrap: balance; }
+  p { text-wrap: pretty; }
+  :focus-visible { outline: 3px solid var(--color-ice); outline-offset: 3px; border-radius: 6px; }
+  [id] { scroll-margin-top: 24px; }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+  }
+}
+
+@layer components {
+  .wrap { @apply mx-auto w-full max-w-[1240px] px-4 sm:px-8; }
+  .eyebrow { @apply text-[13px] font-semibold uppercase tracking-[0.14em] text-nordic; }
+  .btn {
+    @apply inline-flex min-h-12 items-center justify-center gap-2.5 rounded-xl border border-transparent px-6
+      text-[15px] font-semibold leading-none no-underline transition-colors duration-200 cursor-pointer
+      disabled:cursor-progress disabled:opacity-60;
+  }
+  .btn-ice { @apply bg-ice text-navy hover:bg-ice-soft; }
+  .btn-navy { @apply bg-navy text-glacier hover:bg-nordic; }
+  .btn-ghost { @apply border-glacier/55 bg-transparent text-glacier hover:bg-glacier/10; }
+  .btn-line { @apply border-[#c9d3da] bg-transparent text-navy hover:border-navy; }
+  .tag {
+    @apply inline-flex items-center gap-1.5 rounded-full bg-silver px-2.5 py-1.5 text-xs font-semibold tracking-wide text-nordic;
+  }
+  .tag-dark { @apply bg-navy/75 text-glacier; }
+  .field {
+    @apply min-h-[50px] w-full rounded-xl border-[1.5px] border-line bg-glacier px-3.5 py-3 text-base text-navy
+      transition-colors placeholder:text-[#7c8995]
+      focus:border-nordic focus:bg-white focus:outline-none focus:ring-[3px] focus:ring-ice/70;
+  }
+  .field[aria-invalid="true"] { @apply border-danger bg-white; }
+}
+
+@keyframes hero-in {
+  from { transform: scale(1.06); opacity: 0.6; }
+  to { transform: scale(1); opacity: 1; }
+}
+.hero-img { animation: hero-in 2.4s cubic-bezier(.2,.7,.2,1) both; }
